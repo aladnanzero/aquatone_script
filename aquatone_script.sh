@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# হেল্প ফাংশন
+# help function
 function show_help() {
     echo "Usage: aquatone_script.sh example.com"
     echo ""
@@ -15,29 +15,29 @@ function show_help() {
     echo " Note : You will find the subdomain report and screenshots in the aquatone_script_result folder. "
 }
 
-# চেকিং ইনপুট প্যারামিটার
+#  Checking input 
 if [ "$1" == "-h" ]; then
     show_help
     exit 0
 fi
 
-# ডোমেন ইনপুট
+#Domain Input
 read -p "Enter domain: " domain
 
-# আউটপুট ফোল্ডার সেটআপ
+# Output folder setup
 output_base="aquatone_script_result"
 output_dir="$output_base/$domain/recon"
 mkdir -p $output_dir
 
-# সাবডোমেন সংগ্রহ
+# subdomain collect
 echo "[+] Gathering subdomains..."
 subfinder -d $domain > $output_dir/subdomains.txt
 
-# স্ক্রিনশট নেওয়া
+# Take screenshot
 echo "[+] Taking screenshots with Aquatone..."
 cat $output_dir/subdomains.txt | aquatone -threads 10 -out $output_dir/aquatone_output
 
-# রিপোর্ট দেখানো
+# show report
 echo "[+] Aquatone process complete. Open the report:"
 firefox $output_dir/aquatone_output/aquatone_report.html
 
