@@ -1,1 +1,1 @@
-# aquatone_script
+# aquatone_automate_script
